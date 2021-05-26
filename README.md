@@ -3,11 +3,16 @@
   <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000" />
 </p>
 
-> Small project that aims to imitate airBnB's web style.
+> Small project that aims to imitate airBnB's web style. Mobile-first and slightly responsive ;)
 
-### 🏠 [Homepage](https://teo-lopez.github.io/WindBnB/)
+## Technologies employed.  
 
-### ✨ [Demo](https://teo-lopez.github.io/WindBnB/)
+1. Typescript
+2. React + hooks
+3. Styled components + material UI
+
+### 🏠 [Homepage / Demo](https://teo-lopez.github.io/WindBnB/)
+
 
 ## Install
 
