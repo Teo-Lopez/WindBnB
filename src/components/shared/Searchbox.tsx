@@ -5,13 +5,22 @@ import Drawer from '@material-ui/core/Drawer'
 import Divider from '@material-ui/core/Divider'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import Paper from '@material-ui/core/Paper'
-import { Input } from '@material-ui/core'
+import { Input, SvgIcon } from '@material-ui/core'
+import { title } from 'process'
+import data from '../Region/stays.json'
+import { IFlat } from '../Region/IFlat'
+import RoomIcon from '@material-ui/icons/Room'
 
 const Wrapper = styled.div`
 	width: 100%;
 	display: flex;
 	justify-content: space-around;
 	padding-top: ${props => props.theme.spacings.md};
+
+	@media screen and (min-width: 700px) {
+		margin-right: ${({ theme }) => theme.spacings.md};
+		justify-content: flex-end;
+	}
 `
 
 const SearchBox = styled.div`
@@ -33,8 +42,6 @@ const SearchBox = styled.div`
 			width: 100%;
 			font-size: 14px;
 			text-align: center;
-			/* identical to box height */
-
 			color: #333333;
 		}
 	}
@@ -103,6 +110,16 @@ const CustomDrawer = styled(Drawer)`
 			}
 		}
 	}
+	ul {
+		margin: 0;
+		padding: ${({ theme }) => theme.spacings.sm + ' ' + theme.spacings.md};
+		li {
+			display: flex;
+			align-items: center;
+			padding: ${({ theme }) => theme.spacings.xs} 0;
+			list-style: none;
+		}
+	}
 `
 
 function Searchbox({ updateGuests, guests }: { updateGuests: Function; guests: string }) {
@@ -116,6 +133,8 @@ function Searchbox({ updateGuests, guests }: { updateGuests: Function; guests: s
 		e.preventDefault()
 		setOpen(false)
 	}
+
+	const regions: IFlat[] = data.filter((e, idx, a) => a.findIndex(t => t.city === e.city) === idx)
 
 	return (
 		<Wrapper>
@@ -133,7 +152,7 @@ function Searchbox({ updateGuests, guests }: { updateGuests: Function; guests: s
 			<CustomDrawer anchor='top' open={open} onClose={toggle}>
 				<header>
 					<p>Edit your search</p>
-					<img onClick={toggle} src={close} />
+					<img onClick={toggle} src={close} alt={title} />
 				</header>
 				<Paper elevation={2} className='drawer-search'>
 					<div>
@@ -163,6 +182,15 @@ function Searchbox({ updateGuests, guests }: { updateGuests: Function; guests: s
 						</form>
 					</div>
 				</Paper>
+
+				<ul>
+					{regions.map(e => (
+						<li>
+							<SvgIcon component={RoomIcon} />
+							{e.city}, {e.country}
+						</li>
+					))}
+				</ul>
 			</CustomDrawer>
 		</Wrapper>
 	)

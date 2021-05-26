@@ -1,7 +1,8 @@
-import React from 'react'
 import styled from 'styled-components'
 import Flat from './Flat'
 import data from './stays.json'
+import Grid, { GridSpacing } from '@material-ui/core/Grid'
+
 const Wrapper = styled.section`
 	font-family: Montserrat;
 	font-style: normal;
@@ -17,6 +18,12 @@ const Wrapper = styled.section`
 			font-weight: 500;
 		}
 	}
+
+	@media screen and (min-width: 1200px) {
+		header {
+			font-size: 24px;
+		}
+	}
 `
 
 function Region({ guests }: { guests: string }) {
@@ -28,9 +35,13 @@ function Region({ guests }: { guests: string }) {
 				<p>Stays in Finland</p>
 				<p className='stays'>{stays.length}+ stays</p>
 			</header>
-			{stays.map((e, idx) => (
-				<Flat key={idx} {...e} />
-			))}
+			<Grid container justify='center' spacing={0}>
+				{stays.map((e, idx) => (
+					<Grid lg={4} md={6}>
+						<Flat key={idx} {...e} />
+					</Grid>
+				))}
+			</Grid>
 		</Wrapper>
 	)
 }
